@@ -1,0 +1,44 @@
+<template>
+  <div class="container">
+    <app-header :quoteCount="quotes.length" :maxQuote="10"></app-header>
+    <app-new-quote @quoteAdded="newQuote"></app-new-quote>
+    <app-quote-grid :quotes="quotes" @quoteDeleted="deleteQuote"></app-quote-grid>
+    <div class="alert alert-info">Info: Click on a Quote to delete it!</div>
+  </div>
+</template>
+
+<script>
+import QuoteGrid from './components/QuoteGrid.vue';
+import newQuote from './components/NewQuote.vue';
+import Header from './components/Header.vue';
+
+export default {
+  data() {
+    return {
+      quotes: ['Just a quote to see something'],
+      maxQuotes: 10,
+    };
+  },
+  components: {
+    appQuoteGrid: QuoteGrid,
+    appNewQuote: newQuote,
+    appHeader: Header,
+  },
+  methods: {
+    newQuote(quote) {
+      if (this.quotes.length >= this.maxQuotes) {
+        alert('You have to delete some quotes first!');
+        return;
+      } 
+      this.quotes.push(quote);
+    },
+    deleteQuote(index) {
+      this.quotes.splice(index, 1);
+    },
+  },
+};
+</script>
+
+<style>
+
+</style>
